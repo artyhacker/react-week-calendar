@@ -18,8 +18,10 @@
 @daycell-border-color-hover: #f9690e;
 
 //event
-@event-color: @calendar-color;
-@event-bg-color: rgba(139,195,74, 0.4);
+@event-color: #000;
+@event-bg-color: #fff000;
+@event-time-color: #fff;
+@event-time-bg-color: #2C3E50;
 
 //modal variable
 @modal-backdrop: rgba(0,0,0,0.6);
@@ -165,6 +167,20 @@
   height: 100%;
   color: @event-color;
   background-color: @event-bg-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event__time {
+  text-align: center;
+  background-color: @event-time-bg-color;
+  color: @event-time-color;
+}
+
+.event__text {
+  text-align: center;
+  word-break: break-all;
 }
 
 .calendarModal {

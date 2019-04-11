@@ -305,10 +305,11 @@ class WeekCalendar extends React.Component {
             endY = scaleIntervals.length;
           }
           const top = startY * cellHeight;
-          const width = (columnDimensions[dayIndex].width - eventSpacing) / groupIntersection;
+          const width = ((columnDimensions[dayIndex].width - eventSpacing) / groupIntersection) - eventSpacing;
 
           //TODO: dividing  by the GroupIntersection doesn't seem to work all that great...
-          const left = columnDimensions[dayIndex].left + ((width + Math.floor(eventSpacing / groupIntersection)) * beforeIntersectionNumber);
+          const left = columnDimensions[dayIndex].left + ((width + Math.floor(eventSpacing / groupIntersection)) * beforeIntersectionNumber)
+            + eventSpacing;
           const height = (endY - startY) * cellHeight;
           const eventWrapperStyle = {
             top,
@@ -323,7 +324,7 @@ class WeekCalendar extends React.Component {
               style={eventWrapperStyle}
               onClick={this.handleEventClick.bind(this, interval)}
             >
-              <EventComponent {...interval} />
+              <EventComponent {...interval} scaleUnit={this.props.scaleUnit} />
             </div>
           );
           result.push(eventComponent);
