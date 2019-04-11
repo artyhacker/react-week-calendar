@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
   start: PropTypes.object.isRequired,
   end: PropTypes.object.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
 };
 
 
@@ -19,7 +19,7 @@ class Event extends React.PureComponent {
       <div className="event">
         <span>{`${start.format('HH:mm')} - ${end.format('HH:mm')}`}</span>
         <br /><br />
-        {value}
+        {value || ''}
       </div>
     );
   }
