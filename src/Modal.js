@@ -15,15 +15,34 @@ const defaultProps = {
 
 
 class Modal extends React.Component {
+  state = {
+    start: '',
+    end: '',
+  };
+
   handleRemove = () => {
     this.props.onRemove();
   }
 
   handleSave = () => {
     const { value } = this.input;
-    this.props.onSave({
-      value,
-    });
+    const values = { value };
+
+    if (this.state.start) {
+      const startNumbers = this.state.start.split(':')
+        .map(s => parseInt(s, 10));
+      values.start = this.props.start.hour(startNumbers[0])
+        .minute(startNumbers[1]);
+    }
+
+    if (this.state.end) {
+      const endNumbers = this.state.end.split(':')
+        .map(s => parseInt(s, 10));
+      values.end = this.props.end.hour(endNumbers[0])
+        .minute(endNumbers[1]);
+    }
+
+    this.props.onSave(values);
   }
 
   renderText() {
@@ -41,10 +60,25 @@ class Modal extends React.Component {
   render() {
     const {
       value,
+      start,
+      end,
     } = this.props;
     return (
       <div className="customModal">
-        <div className="customModal__text">{this.renderText()}</div>
+        {/* <div className="customModal__text">{this.renderText()}</div> */}
+        <div style={{ textAlign: 'center', marginBottom: '5px' }}>
+          <input
+            defaultValue={start.format('HH:mm')}
+            type="time"
+            onChange={e => this.setState({ start: e.target.value })}
+          />
+          <span style={{ margin: '1rem' }}> - </span>
+          <input
+            defaultValue={end.format('HH:mm')}
+            type="time"
+            onChange={e => this.setState({ end: e.target.value })}
+          />
+        </div>
         <input
           ref={(el) => { this.input = el; }}
           className="customModal__input"
